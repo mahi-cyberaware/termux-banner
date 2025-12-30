@@ -13,3 +13,46 @@ touch ~/.hushlogin
 
 echo "[✓] Installation complete."
 echo "[✓] Restart Termux to see the banner."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# -------------------------------
+# Banner ON / OFF command
+# -------------------------------
+cat << 'EOF' > $PREFIX/bin/banner
+#!/data/data/com.termux/files/usr/bin/bash
+
+case "\$1" in
+  on)
+    sed -i '/banner.sh/d' ~/.zshrc
+    echo 'if [ -f "$HOME/banner.sh" ]; then bash "$HOME/banner.sh"; fi' >> ~/.zshrc
+    echo "Banner enabled"
+    ;;
+  off)
+    sed -i '/banner.sh/d' ~/.zshrc
+    echo "Banner disabled"
+    ;;
+  *)
+    echo "Usage: banner on | banner off"
+    ;;
+esac
+EOF
+
+chmod +x $PREFIX/bin/banner
